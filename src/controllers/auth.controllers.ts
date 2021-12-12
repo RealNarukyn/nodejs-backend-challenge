@@ -4,6 +4,8 @@ import { HydratedDocument } from "mongoose";
 import { IUser } from "src/interfaces/user";
 import { UserModel } from "../models/user";
 
+import { hashPassword } from "../utils/utils";
+
 export class AuthController {
   static login = async (request: Request, response: Response) => {
     const { username, password } = request.body;
@@ -46,18 +48,21 @@ export class AuthController {
       });
     }
 
+    // -- Hash the password
+    const h_password = await hashPassword(password.trim());
+
+    // -- Get the las userID stored to make it "auto-incremental"
     const lastUser: IUser = await UserModel.findOne(
       {},
       {},
       { sort: { userID: -1 } }
     );
-
     const lastID: number = lastUser ? lastUser.userID + 1 : 1;
 
     const doc: HydratedDocument<IUser> = new UserModel({
       userID: lastID,
       username,
-      password,
+      password: h_password,
     });
     await doc.save();
 

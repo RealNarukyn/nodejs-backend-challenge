@@ -1,18 +1,16 @@
 import * as bcrypt from "bcryptjs";
-// const bcrypt = require("bcryptjs");
 
-export const cypherPassword = async (password: string) => {
-  let c_password: string = "";
+export const hashPassword = async (password: string) => {
+  const saltRounds = 10;
 
-  bcrypt.hash(password, 10, (err: Error, result: string) => {
-    if (err) {
-      console.log("Error hashing:", err);
-    }
-
-    c_password = result;
+  const hashedPassword = await new Promise((resolve, reject) => {
+    bcrypt.hash(password, saltRounds, function (err, hash) {
+      if (err) reject(err);
+      resolve(hash);
+    });
   });
 
-  return c_password;
+  return hashedPassword;
 };
 
 export const getUniqueID = (): string => {
