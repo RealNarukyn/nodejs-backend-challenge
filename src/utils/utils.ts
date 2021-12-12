@@ -5,12 +5,10 @@ export const cypherPassword = async (password: string) => {
   let c_password: string = "";
 
   bcrypt.hash(password, 10, (err: Error, result: string) => {
-    console.log("password", password);
     if (err) {
       console.log("Error hashing:", err);
     }
 
-    console.log("result", result);
     c_password = result;
   });
 

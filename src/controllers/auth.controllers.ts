@@ -63,7 +63,7 @@ export class AuthController {
 
     return response.json({
       statusCode: 200,
-      msg: `User ${doc.username} Created with ID: ${doc.userID}!`,
+      data: doc,
     });
   };
 }

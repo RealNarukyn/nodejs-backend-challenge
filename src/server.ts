@@ -4,7 +4,6 @@ import * as mongoose from "mongoose";
 
 import { config } from "./config";
 
-import { mainRouter } from "./routes/main.routes";
 import { authRouter } from "./routes/auth.routes";
 import { movieRouter } from "./routes/movie.routes";
 
@@ -22,7 +21,6 @@ mongoose
   });
 
 // -- Routes
-app.use("/api", mainRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/movieslist", movieRouter);
 
