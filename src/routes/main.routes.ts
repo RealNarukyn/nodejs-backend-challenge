@@ -7,8 +7,4 @@ router.get("/", (req: Request, res: Response) =>
   res.send("Main Home Page, There' nothing to see here!")
 );
 
-router.get("/api", (req: Request, res: Response) =>
-  res.send("the main api endpoint")
-);
-
 export { router as mainRouter };
